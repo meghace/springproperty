@@ -1,0 +1,5 @@
+note :
+    from : mailer@yaml.com
+    email : mailer@yaml.com
+    subject: Hello World
+    smtp : yaml.com

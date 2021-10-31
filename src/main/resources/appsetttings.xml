@@ -1,0 +1,6 @@
+<note>
+    <email>info@xml.com</email>
+    <from>mailer@xml.com</from>
+    <subject>Reminder</subject>
+    <smtp>xml.com</smtp>
+</note>

@@ -1,0 +1,32 @@
+-- Table: public.settings
+
+-- DROP TABLE IF EXISTS public.settings;
+
+CREATE TABLE IF NOT EXISTS public.settings
+(
+    id bigint NOT NULL,
+    key text COLLATE pg_catalog."default",
+    value text COLLATE pg_catalog."default",
+    CONSTRAINT settings_pkey PRIMARY KEY (id)
+)
+
+TABLESPACE pg_default;
+
+ALTER TABLE IF EXISTS public.settings
+    OWNER to root;
+
+INSERT INTO public.settings(
+	id, key, value)
+	VALUES (1, 'from', 'app@pg.com');
+
+INSERT INTO public.settings(
+	id, key, value)
+	VALUES (2, 'to', 'to@pg.com');
+
+INSERT INTO public.settings(
+	id, key, value)
+	VALUES (3, 'subject', 'Hello PG');
+
+INSERT INTO public.settings(
+	id, key, value)
+	VALUES (4, 'smtp', 'pg.com');
