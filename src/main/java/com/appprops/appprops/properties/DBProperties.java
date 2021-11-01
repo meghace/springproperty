@@ -1,11 +1,8 @@
 package com.appprops.appprops.properties;
 
-import com.appprops.appprops.ApppropsApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.logging.DeferredLog;
-import org.springframework.context.ApplicationEvent;
-import org.springframework.context.ApplicationListener;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
 import org.springframework.stereotype.Component;
@@ -18,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class DBProperties implements ApplicationListener<ApplicationEvent> {
+public class DBProperties implements AppProperties {
     /**
      * Name of the custom property source added by this post processor class
      */
@@ -31,6 +28,7 @@ public class DBProperties implements ApplicationListener<ApplicationEvent> {
         this.environment = environment;
     }
 
+    @Override
     public void postProcessEnvironment() {
 
         Map<String, Object> propertySource = new HashMap<>();
@@ -58,16 +56,6 @@ public class DBProperties implements ApplicationListener<ApplicationEvent> {
 
         } catch (Throwable e) {
             throw new RuntimeException(e);
-        }
-    }
-
-
-    @Override
-    public void onApplicationEvent(ApplicationEvent event) {
-
-        if (ApppropsApplication.MODE.equalsIgnoreCase("DB")) {
-            System.out.println(event);
-            this.postProcessEnvironment();
         }
     }
 

@@ -1,11 +1,10 @@
 package com.appprops.appprops;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
-import org.springframework.cloud.context.config.annotation.RefreshScope;
 
 
 @Component

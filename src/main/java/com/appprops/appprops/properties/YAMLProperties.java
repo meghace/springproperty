@@ -1,9 +1,6 @@
 package com.appprops.appprops.properties;
 
-import com.appprops.appprops.ApppropsApplication;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEvent;
-import org.springframework.context.ApplicationListener;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
 import org.springframework.stereotype.Component;
@@ -14,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class YAMLProperties implements ApplicationListener<ApplicationEvent> {
+public class YAMLProperties implements AppProperties {
 
     private static final String PROPERTY_SOURCE_NAME = "yamlProperties";
     private final ConfigurableEnvironment environment;
@@ -23,6 +20,7 @@ public class YAMLProperties implements ApplicationListener<ApplicationEvent> {
         this.environment = environment;
     }
 
+    @Override
     public void postProcessEnvironment() {
         Map<String, Object> propertySource = new HashMap<>();
 
@@ -44,12 +42,4 @@ public class YAMLProperties implements ApplicationListener<ApplicationEvent> {
 
     }
 
-    @Override
-    public void onApplicationEvent(ApplicationEvent event) {
-
-        if (ApppropsApplication.MODE.equalsIgnoreCase("YAML")) {
-            System.out.println(event);
-            this.postProcessEnvironment();
-        }
-    }
 }

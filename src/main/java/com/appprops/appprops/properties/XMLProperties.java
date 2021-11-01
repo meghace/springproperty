@@ -1,10 +1,7 @@
 package com.appprops.appprops.properties;
 
-import com.appprops.appprops.ApppropsApplication;
 import com.appprops.appprops.util.XmlToMapUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEvent;
-import org.springframework.context.ApplicationListener;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
 import org.springframework.stereotype.Component;
@@ -17,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class XMLProperties implements ApplicationListener<ApplicationEvent> {
+public class XMLProperties implements AppProperties {
 
     private static final String PROPERTY_SOURCE_NAME = "xmlProperties";
     private final ConfigurableEnvironment environment;
@@ -26,6 +23,7 @@ public class XMLProperties implements ApplicationListener<ApplicationEvent> {
         this.environment = environment;
     }
 
+    @Override
     public void postProcessEnvironment() {
         Map<String, Object> propertySource = new HashMap<>();
         InputStream is = getClass().getClassLoader().getResourceAsStream("appsetttings.xml");
@@ -48,15 +46,6 @@ public class XMLProperties implements ApplicationListener<ApplicationEvent> {
         }
 
 
-    }
-
-    @Override
-    public void onApplicationEvent(ApplicationEvent event) {
-
-        if (ApppropsApplication.MODE.equalsIgnoreCase("XML")) {
-            System.out.println(event);
-            this.postProcessEnvironment();
-        }
     }
 
 }
