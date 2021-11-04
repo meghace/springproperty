@@ -12,45 +12,45 @@ import java.io.Serializable;
 public class Note implements Serializable {
 
     @Value("${note.from}")
-    private String from;
+    public String from;
     @Value("${note.email}")
-    private String email;
+    public String email;
     @Value("${note.subject}")
-    private String subject;
+    public String subject;
     @Value("${note.smtp}")
-    private String smtp;
+    public String smtp;
 
-    public String getFrom() {
-        return from;
-    }
-
-    public void setFrom(String from) {
-        this.from = from;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSubject() {
-        return subject;
-    }
-
-    public void setSubject(String subject) {
-        this.subject = subject;
-    }
-
-    public String getSmtp() {
-        return smtp;
-    }
-
-    public void setSmtp(String smtp) {
-        this.smtp = smtp;
-    }
+//    public String getFrom() {
+//        return from;
+//    }
+//
+//    public void setFrom(String from) {
+//        this.from = from;
+//    }
+//
+//    public String getEmail() {
+//        return email;
+//    }
+//
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
+//
+//    public String getSubject() {
+//        return subject;
+//    }
+//
+//    public void setSubject(String subject) {
+//        this.subject = subject;
+//    }
+//
+//    public String getSmtp() {
+//        return smtp;
+//    }
+//
+//    public void setSmtp(String smtp) {
+//        this.smtp = smtp;
+//    }
 
     @Override
     public String toString() {

@@ -3,6 +3,7 @@ package com.appprops.appprops.properties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.logging.DeferredLog;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
 import org.springframework.stereotype.Component;
@@ -51,8 +52,11 @@ public class DBProperties implements AppProperties {
             preparedStatement.clearParameters();
             preparedStatement.close();
             connection.close();
+
             environment.getPropertySources().addFirst
                     (new MapPropertySource(PROPERTY_SOURCE_NAME, propertySource));
+
+            System.out.println("Property Refreshed");
 
         } catch (Throwable e) {
             throw new RuntimeException(e);

@@ -1,6 +1,8 @@
 package com.appprops.appprops;
 
 import com.appprops.appprops.properties.DBProperties;
+import com.appprops.appprops.properties.XMLProperties;
+import com.appprops.appprops.properties.YAMLProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,8 +20,12 @@ public class ShowProperties {
 
     @Autowired
     Note mynote;
-    @Autowired
+
     DBProperties dbProperties;
+    @Autowired
+    XMLProperties xmlProperties;
+    @Autowired
+    YAMLProperties ymlProperties;
 
     @GetMapping(path ="/db")
     public void dbProfile() throws ParseException {
@@ -27,14 +33,14 @@ public class ShowProperties {
     }
     @GetMapping(path ="/yaml")
     public void ymlProfile() throws ParseException {
-        dbProperties.postProcessEnvironment();
+        ymlProperties.postProcessEnvironment();
     }
     @GetMapping(path ="xml")
     public void xmlProfile() throws ParseException {
-        dbProperties.postProcessEnvironment();
+        xmlProperties.postProcessEnvironment();
     }
 
-    @GetMapping(path ="/annoted")
+        @GetMapping(path ="/annoted")
     public String Display(){
       return  mynote.toString();
     }

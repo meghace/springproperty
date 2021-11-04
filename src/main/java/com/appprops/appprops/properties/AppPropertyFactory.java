@@ -1,18 +1,21 @@
 package com.appprops.appprops.properties;
 
 import com.appprops.appprops.ApppropsApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
+
 
 public class AppPropertyFactory {
     private static PropertyType propertyType;
 
-    public static AppProperties getAppProperties() {
+    public static AppProperties getAppProperties(ApplicationContext applicationContext) {
         switch (propertyType) {
             case DB:
-                return ApppropsApplication.getApplicationContext().getBean(DBProperties.class);
+               return applicationContext.getBean(DBProperties.class);
             case XML:
-                return ApppropsApplication.getApplicationContext().getBean(XMLProperties.class);
+                return applicationContext.getBean(XMLProperties.class);
             case YML:
-                return ApppropsApplication.getApplicationContext().getBean(YAMLProperties.class);
+                return applicationContext.getBean(YAMLProperties.class);
             default:
                 throw new IllegalArgumentException("Arges propertyType invalid");
         }
