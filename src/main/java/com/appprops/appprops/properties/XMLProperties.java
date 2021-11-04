@@ -1,6 +1,6 @@
 package com.appprops.appprops.properties;
 
-import com.appprops.appprops.util.XmlToMapUtil;
+import com.appprops.appprops.util.MapUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
@@ -29,7 +29,7 @@ public class XMLProperties implements AppProperties {
         InputStream is = getClass().getClassLoader().getResourceAsStream("appsetttings.xml");
         Map<String, Object> data = null;
         try {
-            data = XmlToMapUtil.parse(is);
+            data = MapUtil.parse(is);
             for (Map.Entry<String, Object> entry : data.entrySet()) {
 
                 propertySource.put("note" + "." + entry.getKey(), entry.getValue());

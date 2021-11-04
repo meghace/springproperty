@@ -17,7 +17,7 @@ public class AppPropertyFactory {
             case YML:
                 return applicationContext.getBean(YAMLProperties.class);
             default:
-                throw new IllegalArgumentException("Arges propertyType invalid");
+                throw new IllegalArgumentException("Property Type Invalid");
         }
     }
 

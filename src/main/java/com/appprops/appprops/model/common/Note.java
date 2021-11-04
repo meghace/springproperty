@@ -1,4 +1,4 @@
-package com.appprops.appprops;
+package com.appprops.appprops.model.common;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
@@ -19,38 +19,11 @@ public class Note implements Serializable {
     public String subject;
     @Value("${note.smtp}")
     public String smtp;
+    @Value("${note.smtp.user}")
+    public String smtpuser;
+    @Value("${note.smtp.login}")
+    public String smtplogin;
 
-//    public String getFrom() {
-//        return from;
-//    }
-//
-//    public void setFrom(String from) {
-//        this.from = from;
-//    }
-//
-//    public String getEmail() {
-//        return email;
-//    }
-//
-//    public void setEmail(String email) {
-//        this.email = email;
-//    }
-//
-//    public String getSubject() {
-//        return subject;
-//    }
-//
-//    public void setSubject(String subject) {
-//        this.subject = subject;
-//    }
-//
-//    public String getSmtp() {
-//        return smtp;
-//    }
-//
-//    public void setSmtp(String smtp) {
-//        this.smtp = smtp;
-//    }
 
     @Override
     public String toString() {
@@ -59,6 +32,9 @@ public class Note implements Serializable {
                 ", email='" + email + '\'' +
                 ", subject='" + subject + '\'' +
                 ", smtp='" + smtp + '\'' +
+                ", smtpuser='" + smtpuser + '\'' +
+                ", smtplogin='" + smtplogin + '\'' +
+
                 '}';
     }
 }

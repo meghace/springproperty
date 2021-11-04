@@ -1,5 +1,7 @@
 package com.appprops.appprops;
 
+import com.appprops.appprops.model.common.SpringNote;
+import com.appprops.appprops.model.common.Note;
 import com.appprops.appprops.properties.DBProperties;
 import com.appprops.appprops.properties.XMLProperties;
 import com.appprops.appprops.properties.YAMLProperties;
@@ -13,49 +15,42 @@ import java.text.ParseException;
 
 @RestController
 @Component
-@RequestMapping(path = "/profile")
+@RequestMapping(path = "/common")
 public class ShowProperties {
-
 
 
     @Autowired
     Note mynote;
-
+    @Autowired
+    SpringNote cassandra;
+    @Autowired
     DBProperties dbProperties;
     @Autowired
     XMLProperties xmlProperties;
     @Autowired
     YAMLProperties ymlProperties;
 
-    @GetMapping(path ="/db")
+    @GetMapping(path = "/db")
     public void dbProfile() throws ParseException {
         dbProperties.postProcessEnvironment();
     }
-    @GetMapping(path ="/yaml")
+
+    @GetMapping(path = "/yaml")
     public void ymlProfile() throws ParseException {
         ymlProperties.postProcessEnvironment();
     }
-    @GetMapping(path ="xml")
+
+    @GetMapping(path = "/xml")
     public void xmlProfile() throws ParseException {
         xmlProperties.postProcessEnvironment();
     }
 
-        @GetMapping(path ="/annoted")
-    public String Display(){
-      return  mynote.toString();
+    @GetMapping(path = "/note")
+    public String DisplayNote() {
+        return mynote.toString();
     }
-
-
-//    @GetMapping(path ="/list")
-//    public String DisplayPropertied(){
-//
-//        Environment environment = ApppropsApplication.getApplicationContext().getEnvironment();
-//        Note n = new Note();
-//        n.setFrom(environment.getProperty("note.form"));
-//        n.setEmail(environment.getProperty("note.to"));
-//        n.setSmtp(environment.getProperty("note.smtp"));
-//        n.setSubject(environment.getProperty("note.subjet"));
-//        return  mynote.toString();
-//    }
-
+    @GetMapping(path = "/cassandra")
+    public String DisplayCassandra() {
+        return cassandra.toString();
+    }
 }

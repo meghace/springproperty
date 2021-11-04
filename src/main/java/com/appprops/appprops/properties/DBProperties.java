@@ -1,29 +1,28 @@
 package com.appprops.appprops.properties;
 
+import com.appprops.appprops.repo.SettingRepository;
+import com.appprops.appprops.model.Setting;
+import com.appprops.appprops.util.MapUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.boot.logging.DeferredLog;
-import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.MapPropertySource;
 import org.springframework.stereotype.Component;
 
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
 public class DBProperties implements AppProperties {
-    /**
-     * Name of the custom property source added by this post processor class
-     */
-    private static final String PROPERTY_SOURCE_NAME = "databaseProperties";
+
+    private static final String PROPERTY_SOURCE_NAME = "dbProperties";
     private static final DeferredLog log = new DeferredLog();
 
     private final ConfigurableEnvironment environment;
+
+    @Autowired
+    SettingRepository repository;
 
     public DBProperties(@Autowired ConfigurableEnvironment environment) {
         this.environment = environment;
@@ -35,28 +34,13 @@ public class DBProperties implements AppProperties {
         Map<String, Object> propertySource = new HashMap<>();
         try {
 
-            DataSource ds = DataSourceBuilder
-                    .create()
-                    .username(environment.getProperty("spring.datasource.username"))
-                    .password(environment.getProperty("spring.datasource.password"))
-                    .url(environment.getProperty("spring.datasource.jdbc-url"))
-                    .driverClassName(environment.getProperty("spring.datasource.driver-class-name"))
-                    .build();
-            Connection connection = ds.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM public.settings");
-            ResultSet rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                propertySource.put(rs.getString("key"), rs.getString("value"));
+            List<Setting> list = repository.findAll();
+            for (Setting s : list) {
+                propertySource.put(s.getKey(),s.getValue());
             }
-            rs.close();
-            preparedStatement.clearParameters();
-            preparedStatement.close();
-            connection.close();
-
+            propertySource = MapUtil.ProcessValues(propertySource);
             environment.getPropertySources().addFirst
                     (new MapPropertySource(PROPERTY_SOURCE_NAME, propertySource));
-
-            System.out.println("Property Refreshed");
 
         } catch (Throwable e) {
             throw new RuntimeException(e);
